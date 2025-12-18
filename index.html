@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ghazzal - A Cozy Community Cafe</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #4a2c2a; /* Dark Brown */
+        --secondary-color: #a27b5c; /* Medium Brown */
+        --accent-color: #8d9b7b; /* Dark Green */
+        --text-color: #333;
+        --light-text-color: #f5f5f5;
+        --background-color-light: #f4eadf; /* Creamy beige */
+        --background-color-dark: #2f2423; /* Very dark brown */
+      }
+
+      /* Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        color: var(--text-color);
+        background-color: var(--background-color-light);
+        line-height: 1.6;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        color: var(--primary-color);
+        font-weight: 700;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 700;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .btn-primary {
+        background-color: var(--secondary-color);
+        color: var(--light-text-color);
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: #8d6a4e;
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: var(--light-text-color);
+        border: 2px solid var(--light-text-color);
+      }
+
+      .btn-secondary:hover {
+        background-color: var(--light-text-color);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+      }
+
+      .btn-nav {
+        padding: 8px 15px;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .section-subtitle {
+        text-align: center;
+        font-style: italic;
+        color: #666;
+        margin-bottom: 40px;
+      }
+
+      /* Navigation Bar */
+      .sticky-nav {
+        background-color: var(--background-color-dark);
+        color: var(--light-text-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .sticky-nav nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--light-text-color);
+        text-decoration: none;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        color: var(--light-text-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--secondary-color);
+      }
+
+      .hamburger-menu {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Language Switcher */
+      .language-switcher {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .lang-btn {
+        background: none;
+        border: 1px solid var(--light-text-color);
+        color: var(--light-text-color);
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+      }
+
+      .lang-btn:hover,
+      .lang-btn.active {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+      }
+
+      /* RTL Support */
+      body.rtl {
+        direction: rtl;
+        text-align: right;
+      }
+
+      body.rtl .nav-links {
+        flex-direction: row-reverse;
+      }
+
+      body.rtl .about-content,
+      body.rtl .contact-info-map {
+        flex-direction: row-reverse;
+      }
+
+      body.rtl .menu-item,
+      body.rtl .testimonial-card {
+        text-align: right;
+      }
+
+      /* Hero Section */
+      .hero-banner {
+        background: url("images/hero banner.jpg") no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--light-text-color);
+        text-align: center;
+        position: relative;
+      }
+
+      .hero-banner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-content h1 {
+        font-size: 4rem;
+        margin-bottom: 10px;
+        color: var(--light-text-color);
+      }
+
+      .hero-content .tagline {
+        font-size: 1.5rem;
+        font-weight: 300;
+        margin-bottom: 30px;
+      }
+
+      .cta-buttons .btn {
+        margin: 0 10px;
+      }
+
+      /* General Section Styles */
+      .content-section {
+        padding: 80px 0;
+      }
+
+      /* About Section */
+      .about-section {
+        background-color: #fff;
+      }
+
+      .about-content {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+      }
+
+      .about-text {
+        flex: 1;
+      }
+
+      .about-text p {
+        margin-bottom: 20px;
+        color: #555;
+      }
+
+      .about-image {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .about-image img,
+      .about-image video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Menu Section */
+      .menu-section {
+        background-color: var(--background-color-light);
+      }
+
+      .menu-categories {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .menu-btn {
+        background: none;
+        border: 1px solid var(--secondary-color);
+        color: var(--secondary-color);
+        padding: 10px 20px;
+        margin: 0 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+      }
+
+      .menu-btn:hover,
+      .menu-btn.active {
+        background-color: var(--secondary-color);
+        color: var(--light-text-color);
+      }
+
+      .menu-category-content {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        padding-top: 20px;
+      }
+
+      .menu-category-content.active {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        opacity: 1;
+      }
+
+      .menu-item {
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        text-align: left;
+        transition: transform 0.3s;
+      }
+
+      .menu-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .menu-item h3 {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+      }
+
+      .menu-item .description {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .menu-item .price {
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      .menu-item.featured {
+        border: 2px solid var(--accent-color);
+        background-color: #f7fbf0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .menu-item.featured::before {
+        content: "Special";
+        position: absolute;
+        top: 15px;
+        right: -25px;
+        background-color: var(--accent-color);
+        color: var(--light-text-color);
+        padding: 3px 25px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        transform: rotate(45deg);
+        z-index: 10;
+      }
+
+      /* Gallery Section */
+      .gallery-section {
+        background-color: #fff;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .gallery-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .gallery-grid img:hover {
+        transform: scale(1.03);
+      }
+
+      /* Specials Section */
+      .specials-section {
+        background-color: var(--background-color-dark);
+        color: var(--light-text-color);
+        text-align: center;
+      }
+
+      .specials-section .section-title,
+      .specials-section h3 {
+        color: var(--secondary-color);
+      }
+
+      .promotions p,
+      .events ul {
+        font-size: 1.1rem;
+        max-width: 800px;
+        margin: 0 auto 30px;
+      }
+
+      .events ul {
+        list-style: none;
+        text-align: left;
+        padding-left: 0;
+      }
+
+      .events li {
+        margin-bottom: 15px;
+      }
+
+      .events li i {
+        color: var(--accent-color);
+        margin-right: 10px;
+      }
+
+      /* Testimonials Section */
+      .testimonials-section {
+        background-color: #f5f5f5;
+      }
+
+      .testimonial-carousel {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .testimonial-card {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        text-align: center;
+      }
+
+      .rating {
+        color: gold;
+        margin-bottom: 10px;
+      }
+
+      .review-text {
+        font-style: italic;
+        color: #555;
+        margin-bottom: 15px;
+      }
+
+      .author {
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      /* Contact Section */
+      .contact-section {
+        background-color: var(--background-color-light);
+      }
+
+      .contact-info-map {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .contact-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .contact-details p {
+        margin-bottom: 10px;
+      }
+
+      .contact-details i {
+        color: var(--accent-color);
+        margin-right: 8px;
+      }
+
+      .contact-details a {
+        color: var(--secondary-color);
+        text-decoration: none;
+      }
+
+      .map-container {
+        flex: 1;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .contact-form textarea {
+        resize: vertical;
+      }
+
+      .contact-form .btn {
+        width: 100%;
+      }
+
+      /* Online Ordering & Reservations Section */
+      .order-section {
+        background-color: #fff;
+        text-align: center;
+      }
+
+      .order-options {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        justify-content: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .order-box {
+        background-color: var(--background-color-light);
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .order-box h3 {
+        margin-bottom: 10px;
+      }
+
+      #reservation-form input,
+      #reservation-form button {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      #reservation-form button {
+        padding: 12px;
+      }
+
+      /* Newsletter Section */
+      .newsletter-section {
+        background-color: var(--secondary-color);
+        color: var(--light-text-color);
+        text-align: center;
+        padding: 50px 20px;
+      }
+
+      .newsletter-section h3 {
+        color: var(--light-text-color);
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+      }
+
+      .newsletter-section p {
+        margin-bottom: 20px;
+      }
+
+      #newsletter-form {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      #newsletter-form input {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        min-width: 250px;
+      }
+
+      #newsletter-form .btn {
+        background-color: var(--primary-color);
+      }
+
+      #newsletter-form .btn:hover {
+        background-color: #382422;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--background-color-dark);
+        color: var(--light-text-color);
+        padding: 40px 0 20px;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+
+      .footer-content h4 {
+        color: var(--secondary-color);
+        margin-bottom: 15px;
+      }
+
+      .footer-content ul {
+        list-style: none;
+      }
+
+      .footer-content ul li a {
+        color: var(--light-text-color);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-content ul li a:hover {
+        color: var(--secondary-color);
+      }
+
+      .footer-social .social-icons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .footer-social .social-icons a {
+        color: var(--light-text-color);
+        font-size: 1.5rem;
+        transition: color 0.3s;
+      }
+
+      .footer-social .social-icons a:hover {
+        color: var(--secondary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          background-color: var(--background-color-dark);
+          position: absolute;
+          top: 60px;
+          left: 0;
+          text-align: center;
+          padding-bottom: 20px;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .nav-links li {
+          margin: 10px 0;
+        }
+
+        .hamburger-menu {
+          display: block;
+        }
+
+        .hero-content h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero-content .tagline {
+          font-size: 1.2rem;
+        }
+
+        .about-content,
+        .contact-info-map {
+          flex-direction: column;
+        }
+
+        .about-image img {
+          margin-top: 30px;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .footer-hours,
+        .footer-links,
+        .footer-social {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+
+        #newsletter-form {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-nav">
+      <nav>
+        <a href="#home" class="logo">Ghazal</a>
+        <ul class="nav-links">
+          <li><a href="#home" data-i18n="nav.home">Home</a></li>
+          <li><a href="#about" data-i18n="nav.about">About Us</a></li>
+          <li><a href="#menu" data-i18n="nav.menu">Menu</a></li>
+          <li><a href="#gallery" data-i18n="nav.gallery">Gallery</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+          <li>
+            <a
+              href="#order-online"
+              class="btn btn-secondary"
+              data-i18n="nav.order"
+              >Order Online</a
+            >
+          </li>
+        </ul>
+        <div class="language-switcher">
+          <button class="lang-btn active" data-lang="fr">FR</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ar">AR</button>
+        </div>
+        <div class="hamburger-menu">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero-banner">
+        <div class="hero-content">
+          <h1 data-i18n="hero.title">Welcome to Ghazzal</h1>
+          <p class="tagline" data-i18n="hero.tagline">
+            Your Daily Dose of Happiness
+          </p>
+          <div class="cta-buttons">
+            <a href="#menu" class="btn btn-primary" data-i18n="hero.menu"
+              >See Our Menu</a
+            >
+            <a
+              href="#order-online"
+              class="btn btn-secondary"
+              data-i18n="hero.order"
+              >Order Online</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="content-section about-section">
+        <div class="container">
+          <h2 class="section-title" data-i18n="about.title">Our Story</h2>
+          <div class="about-content">
+            <div class="about-text">
+              <p data-i18n="about.p1">
+                Founded on a passion for quality and community, our coffee shop
+                began as a small dream to create a space where people could
+                connect over a great cup of coffee. We believe that a simple
+                coffee can make a big difference in your day.
+              </p>
+              <p data-i18n="about.p2">
+                Our mission is to serve only the best, ethically-sourced coffee
+                beans, create a warm and inviting atmosphere, and foster a
+                community that values both tradition and innovation. Every bean
+                is carefully selected and roasted to bring you a unique and
+                unforgettable flavor.
+              </p>
+            </div>
+            <div class="about-image">
+              <!-- <video
+                autoplay
+                muted
+                loop
+                playsinline
+                class="about-video"
+              >
+                <source src="videos/about-video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video> -->
+              <img
+                src="images/about-img.jpg"
+                alt="A cozy interior of the coffee shop"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="menu" class="content-section menu-section">
+        <div class="container">
+          <h2 class="section-title" data-i18n="menu.title">Our Menu</h2>
+          <p class="section-subtitle" data-i18n="menu.subtitle">
+            Crafted with care, just for you.
+          </p>
+
+          <div class="menu-categories">
+            <button
+              class="menu-btn active"
+              data-category="hot-drinks"
+              data-i18n="menu.hotDrinks"
+            >
+              Hot Drinks
+            </button>
+            <button
+              class="menu-btn"
+              data-category="cold-drinks"
+              data-i18n="menu.coldDrinks"
+            >
+              Cold Drinks
+            </button>
+            <!-- <button class="menu-btn" data-category="food">Food</button> -->
+          </div>
+
+          <div class="menu-items-container" id="menu-items">
+            <div class="menu-category-content active" id="hot-drinks">
+              <div class="menu-item">
+                <h3>Expresso</h3>
+                <p class="description">Rich and bold espresso shot</p>
+                <span class="price">6 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Café allongé</h3>
+                <p class="description">Espresso with hot water</p>
+                <span class="price">6 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Americano</h3>
+                <p class="description">Classic Americano</p>
+                <span class="price">6 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Petit thé</h3>
+                <p class="description">Small tea</p>
+                <span class="price">7 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Thé Normal</h3>
+                <p class="description">Regular tea</p>
+                <span class="price">6 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Thé à la verveine</h3>
+                <p class="description">Verbena tea</p>
+                <span class="price">8 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Grand thé</h3>
+                <p class="description">Large tea</p>
+                <span class="price">10 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Thé Spécial</h3>
+                <p class="description">Special tea blend</p>
+                <span class="price">7 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Café au caramel</h3>
+                <p class="description">Caramel coffee</p>
+                <span class="price">7 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Café au vanille</h3>
+                <p class="description">Vanilla coffee</p>
+                <span class="price">7 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Café au chocolat</h3>
+                <p class="description">Chocolate coffee</p>
+                <span class="price">7 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Double expresso</h3>
+                <p class="description">Double shot of espresso</p>
+                <span class="price">10 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Lait</h3>
+                <p class="description">Steamed milk</p>
+                <span class="price">7 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Lait au verveine</h3>
+                <p class="description">Milk with verbena</p>
+                <span class="price">7 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Lait au chocolat</h3>
+                <p class="description">Chocolate milk</p>
+                <span class="price">7 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Café au lait</h3>
+                <p class="description">Coffee with milk</p>
+                <span class="price">8 DH</span>
+              </div>
+              <div class="menu-item featured">
+                <h3>Cappuccino</h3>
+                <p class="description">Espresso with steamed milk and foam</p>
+                <span class="price">10 DH</span>
+              </div>
+            </div>
+
+            <div class="menu-category-content" id="cold-drinks">
+              <div class="menu-item">
+                <h3>Iced Latte</h3>
+                <p class="description">Chilled espresso with cold milk</p>
+                <span class="price">35 DH</span>
+              </div>
+              <div class="menu-item featured">
+                <h3>Iced Spanish Latte</h3>
+                <p class="description">Cold Spanish latte perfection</p>
+                <span class="price">40 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Iced Americano</h3>
+                <p class="description">Refreshing cold Americano</p>
+                <span class="price">25 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Iced Mocha</h3>
+                <p class="description">Chocolate coffee on ice</p>
+                <span class="price">40 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Cold Brew</h3>
+                <p class="description">Smooth cold-brewed coffee</p>
+                <span class="price">30 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Frappe</h3>
+                <p class="description">Blended iced coffee drink</p>
+                <span class="price">35 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Iced Tea</h3>
+                <p class="description">Refreshing cold tea</p>
+                <span class="price">15 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Lemonade</h3>
+                <p class="description">Fresh squeezed lemonade</p>
+                <span class="price">20 DH</span>
+              </div>
+              <div class="menu-item">
+                <h3>Smoothie</h3>
+                <p class="description">Fresh fruit smoothie</p>
+                <span class="price">40 DH</span>
+              </div>
+            </div>
+
+            <!-- <div class="menu-category-content" id="food">
+              <div class="menu-item">
+                <h3>Croissant</h3>
+                <p class="description">Flaky, buttery croissant</p>
+                <span class="price">20 DA</span>
+              </div>
+              <div class="menu-item">
+                <h3>Pain au Chocolat</h3>
+                <p class="description">Chocolate-filled pastry</p>
+                <span class="price">25 DA</span>
+              </div>
+              <div class="menu-item">
+                <h3>Muffin</h3>
+                <p class="description">Fresh baked muffin</p>
+                <span class="price">20 DA</span>
+              </div>
+              <div class="menu-item">
+                <h3>Cookie</h3>
+                <p class="description">Homemade cookie</p>
+                <span class="price">15 DA</span>
+              </div>
+              <div class="menu-item">
+                <h3>Brownie</h3>
+                <p class="description">Rich chocolate brownie</p>
+                <span class="price">25 DA</span>
+              </div>
+              <div class="menu-item">
+                <h3>Sandwich</h3>
+                <p class="description">Fresh made sandwich</p>
+                <span class="price">45 DA</span>
+              </div>
+              <div class="menu-item">
+                <h3>Panini</h3>
+                <p class="description">Grilled panini sandwich</p>
+                <span class="price">50 DA</span>
+              </div>
+              <div class="menu-item">
+                <h3>Salad</h3>
+                <p class="description">Fresh garden salad</p>
+                <span class="price">40 DA</span>
+              </div>
+              <div class="menu-item">
+                <h3>Cake Slice</h3>
+                <p class="description">Delicious cake slice</p>
+                <span class="price">30 DA</span>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="content-section gallery-section">
+        <div class="container">
+          <h2 class="section-title" data-i18n="gallery.title">Our Gallery</h2>
+          <p class="section-subtitle" data-i18n="gallery.subtitle">
+            A glimpse into our world.
+          </p>
+          <div class="gallery-grid">
+            <img
+              src="images/gallery/coffee-is-poured-from-coffee-machine.jpg"
+              alt="Coffee pouring from machine"
+            />
+            <img
+              src="images/gallery/dark-coffee-beans-bowl-brown-table.jpg"
+              alt="Coffee beans in a bowl"
+            />
+            <img
+              src="images/gallery/front-view-cup-cappuccino-with-cookies-book-table.jpg"
+              alt="Cappuccino with cookies and book"
+            />
+            <img
+              src="images/gallery/2174329b8ef1603c1cbc68bd9ef5865a.jpg"
+              alt="Coffee ambiance"
+            />
+            <img
+              src="images/gallery/2e935ede445a501adae8b8845bac5e95.jpg"
+              alt="Coffee details"
+            />
+            <img
+              src="images/gallery/74eb11bfe223256ca55aeea7c65642f7.jpg"
+              alt="Coffee mood"
+            />
+            <img
+              src="images/gallery/343df370d3a3fdf761c83ed4d5e53e87.jpg"
+              alt="Barista crafting coffee"
+            />
+            <img
+              src="images/gallery/38a8fa2f73904f6e015eb65bea8405c6.jpg"
+              alt="Cozy coffee setup"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section id="specials-events" class="content-section specials-section">
+        <div class="container">
+          <h2 class="section-title" data-i18n="specials.title">
+            Specials & Events
+          </h2>
+          <div class="promotions">
+            <h3 data-i18n="specials.promoTitle">Current Promotion</h3>
+            <p>
+              <strong data-i18n="specials.happyHourTitle">Happy Hour:</strong>
+              <span data-i18n="specials.happyHourText"
+                >Enjoy 2-for-1 on all Cappuccinos every weekday from 2 PM - 4
+                PM!</span
+              >
+            </p>
+          </div>
+          <div class="events">
+            <h3 data-i18n="specials.eventsTitle">Upcoming Events</h3>
+            <ul>
+              <li>
+                <i class="fas fa-calendar-alt"></i>
+                <strong data-i18n="specials.musicTitle"
+                  >Live Music Fridays:</strong
+                >
+                <span data-i18n="specials.musicText"
+                  >Every Friday at 7 PM. Enjoy local acoustic artists.</span
+                >
+              </li>
+              <li>
+                <i class="fas fa-calendar-alt"></i>
+                <strong data-i18n="specials.workshopTitle"
+                  >Coffee Tasting Workshop:</strong
+                >
+                <span data-i18n="specials.workshopText"
+                  >Join us on the last Saturday of the month at 10 AM.</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" class="content-section testimonials-section">
+        <div class="container">
+          <h2 class="section-title">What Our Customers Say</h2>
+          <div class="testimonial-carousel">
+            <div class="testimonial-card">
+              <div class="rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i
+                ><i class="fas fa-star"></i><i class="fas fa-star"></i
+                ><i class="fas fa-star"></i>
+              </div>
+              <p class="review-text">
+                "The best coffee in town! The atmosphere is so relaxing and the
+                staff are incredibly friendly. I come here to work almost every
+                day."
+              </p>
+              <p class="author">- Jane D.</p>
+            </div>
+            <div class="testimonial-card">
+              <div class="rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i
+                ><i class="fas fa-star"></i><i class="fas fa-star"></i
+                ><i class="fas fa-star"></i>
+              </div>
+              <p class="review-text">
+                "Their pastries are divine! The perfect pairing with their
+                fantastic lattes. A must-visit spot!"
+              </p>
+              <p class="author">- Mark S.</p>
+            </div>
+            <div class="testimonial-card">
+              <div class="rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i
+                ><i class="fas fa-star"></i><i class="fas fa-star"></i
+                ><i class="fas fa-star-half-alt"></i>
+              </div>
+              <p class="review-text">
+                "Love the community vibe and the live music on Fridays. It’s
+                more than just a coffee shop; it’s a place to be."
+              </p>
+              <p class="author">- Liam P.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="content-section contact-section">
+        <div class="container">
+          <h2 class="section-title" data-i18n="contact.title">Get in Touch</h2>
+          <p class="section-subtitle" data-i18n="contact.subtitle">
+            We'd love to hear from you.
+          </p>
+
+          <div class="contact-info-map">
+            <div class="contact-details">
+              <address>
+                <p>
+                  <i class="fas fa-map-marker-alt"></i>
+                  <strong data-i18n="contact.addressLabel">Address:</strong>
+                  <span data-i18n="contact.addressValue"
+                    >123 Coffee Lane, Brewtown, CA 90210</span
+                  >
+                </p>
+                <p>
+                  <i class="fas fa-phone-alt"></i>
+                  <strong data-i18n="contact.phoneLabel">Phone:</strong>
+                  <span data-i18n="contact.phoneValue">(123) 456-7890</span>
+                </p>
+                <p>
+                  <i class="fas fa-envelope"></i>
+                  <strong data-i18n="contact.emailLabel">Email:</strong>
+                  <a
+                    href="mailto:hello@yourcoffeeshop.com"
+                    data-i18n="contact.emailValue"
+                    >hello@yourcoffeeshop.com</a
+                  >
+                </p>
+              </address>
+              <p class="opening-hours">
+                <i class="fas fa-clock"></i>
+                <strong data-i18n="contact.hoursLabel">Opening Hours:</strong>
+                <span data-i18n="contact.hoursValue"
+                  >Mon-Fri: 7 AM - 6 PM | Sat-Sun: 8 AM - 5 PM</span
+                >
+              </p>
+            </div>
+            <div class="map-container">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12345.6789!2d-122.0842499!3d37.4224764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDI1JzE4LjEiTiAxMjLCsDA1JzI1LjYiVw!5e0!3m2!1sen!2sus!4v1619623000000!5m2!1sen!2sus"
+                width="100%"
+                height="300"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="order-online" class="content-section order-section">
+        <div class="container">
+          <h2 class="section-title" data-i18n="order.title">
+            Order Online & Reservations
+          </h2>
+          <div class="order-options">
+            <div class="order-box">
+              <h3 data-i18n="order.pickupTitle">Order for Pickup</h3>
+              <p data-i18n="order.pickupText">
+                Place your order ahead of time and it'll be ready when you
+                arrive.
+              </p>
+              <a
+                href="https://your-online-ordering-platform.com"
+                class="btn btn-primary"
+                target="_blank"
+                data-i18n="order.orderNow"
+                >Order Now</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-hours">
+          <h4 data-i18n="footer.hoursTitle">Opening Hours</h4>
+          <p data-i18n="footer.weekdays">Mon-Fri: 7 AM - 6 PM</p>
+          <p data-i18n="footer.weekends">Sat-Sun: 8 AM - 5 PM</p>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer.quickLinks">Quick Links</h4>
+          <ul>
+            <li><a href="#home" data-i18n="nav.home">Home</a></li>
+            <li><a href="#menu" data-i18n="nav.menu">Menu</a></li>
+            <li><a href="#about" data-i18n="nav.about">About Us</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+            <li><a href="#" data-i18n="footer.privacy">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-social">
+          <h4 data-i18n="footer.followUs">Follow Us</h4>
+          <div class="social-icons">
+            <a href="https://instagram.com" target="_blank"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="https://facebook.com" target="_blank"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="https://tiktok.com" target="_blank"
+              ><i class="fab fa-tiktok"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer.copyright">
+          &copy; 2024 Ghazzal. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+
+        // Mobile menu toggle
+        const hamburgerBtn = document.querySelector(".hamburger-menu");
+        const navLinks = document.querySelector(".nav-links");
+
+        if (hamburgerBtn && navLinks) {
+          hamburgerBtn.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+          });
+
+          // Hide menu when a link is clicked
+          document.querySelectorAll(".nav-links a").forEach((link) => {
+            link.addEventListener("click", () => {
+              navLinks.classList.remove("active");
+            });
+          });
+        }
+
+        // Menu category filtering
+        const menuButtons = document.querySelectorAll(".menu-btn");
+        const menuContents = document.querySelectorAll(
+          ".menu-category-content"
+        );
+
+        menuButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const category = button.getAttribute("data-category");
+
+            // Remove active class from all buttons and content
+            menuButtons.forEach((btn) => btn.classList.remove("active"));
+            menuContents.forEach((content) =>
+              content.classList.remove("active")
+            );
+
+            // Add active class to the clicked button and corresponding content
+            button.classList.add("active");
+            document.getElementById(category).classList.add("active");
+          });
+        });
+
+        // Handle form submissions (optional, for demonstration)
+        const contactForm = document.getElementById("contact-form");
+        if (contactForm) {
+          contactForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert("Thank you for your message! We will get back to you soon.");
+            contactForm.reset();
+          });
+        }
+
+        const reservationForm = document.getElementById("reservation-form");
+        if (reservationForm) {
+          reservationForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert(
+              "Your reservation has been sent! We look forward to seeing you."
+            );
+            reservationForm.reset();
+          });
+        }
+
+        const newsletterForm = document.getElementById("newsletter-form");
+        if (newsletterForm) {
+          newsletterForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert("Thanks for subscribing to our newsletter!");
+            newsletterForm.reset();
+          });
+        }
+
+        // Multilingual Support
+        const translations = {
+          fr: {
+            nav: {
+              home: "Accueil",
+              about: "À propos",
+              menu: "Menu",
+              gallery: "Galerie",
+              contact: "Contact",
+              order: "Commander",
+            },
+            hero: {
+              title: "Bienvenue chez Ghazzal",
+              tagline: "Votre dose quotidienne de bonheur",
+              menu: "Voir notre menu",
+              order: "Commander en ligne",
+            },
+            about: {
+              title: "Notre Histoire",
+              p1: "Fondé sur une passion pour la qualité et la communauté, notre café a commencé comme un petit rêve de créer un espace où les gens pourraient se connecter autour d'une excellente tasse de café. Nous croyons qu'un simple café peut faire une grande différence dans votre journée.",
+              p2: "Notre mission est de servir uniquement les meilleurs grains de café d'origine éthique, de créer une atmosphère chaleureuse et accueillante, et de favoriser une communauté qui valorise à la fois la tradition et l'innovation. Chaque grain est soigneusement sélectionné et torréfié pour vous offrir une saveur unique et inoubliable.",
+            },
+            menu: {
+              title: "Notre Menu",
+              subtitle: "Préparé avec soin, rien que pour vous.",
+              hotDrinks: "Boissons Chaudes",
+              coldDrinks: "Boissons Froides",
+            },
+            gallery: {
+              title: "Notre Galerie",
+              subtitle: "Un aperçu de notre monde.",
+            },
+            specials: {
+              title: "Spéciaux et Événements",
+              promoTitle: "Promotion Actuelle",
+              happyHourTitle: "Happy Hour :",
+              happyHourText:
+                "Profitez de 2 pour 1 sur tous les cappuccinos tous les jours de la semaine de 14h à 16h !",
+              eventsTitle: "Événements à Venir",
+              musicTitle: "Vendredis Musique Live :",
+              musicText:
+                "Tous les vendredis à 19h. Profitez d'artistes acoustiques locaux.",
+              workshopTitle: "Atelier de Dégustation de Café :",
+              workshopText: "Rejoignez-nous le dernier samedi du mois à 10h.",
+            },
+            contact: {
+              title: "Contactez-nous",
+              subtitle: "Nous serions ravis d'avoir de vos nouvelles.",
+              addressLabel: "Adresse :",
+              addressValue: "123 Rue du Café, Ville, Maroc",
+              phoneLabel: "Téléphone :",
+              phoneValue: "(123) 456-7890",
+              emailLabel: "Email :",
+              emailValue: "bonjour@ghazzal.com",
+              hoursLabel: "Heures d'ouverture :",
+              hoursValue: "Lun-Ven : 7h - 18h | Sam-Dim : 8h - 17h",
+            },
+            order: {
+              title: "Commander en Ligne & Réservations",
+              pickupTitle: "Commander à Emporter",
+              pickupText:
+                "Passez votre commande à l'avance et elle sera prête à votre arrivée.",
+              orderNow: "Commander Maintenant",
+            },
+            footer: {
+              hoursTitle: "Heures d'ouverture",
+              weekdays: "Lun-Ven : 7h - 18h",
+              weekends: "Sam-Dim : 8h - 17h",
+              quickLinks: "Liens Rapides",
+              privacy: "Politique de Confidentialité",
+              followUs: "Suivez-nous",
+              copyright: "&copy; 2024 Ghazzal. Tous droits réservés.",
+            },
+          },
+          en: {
+            nav: {
+              home: "Home",
+              about: "About Us",
+              menu: "Menu",
+              gallery: "Gallery",
+              contact: "Contact",
+              order: "Order Online",
+            },
+            hero: {
+              title: "Welcome to Ghazzal",
+              tagline: "Your Daily Dose of Happiness",
+              menu: "See Our Menu",
+              order: "Order Online",
+            },
+            about: {
+              title: "Our Story",
+              p1: "Founded on a passion for quality and community, our coffee shop began as a small dream to create a space where people could connect over a great cup of coffee. We believe that a simple coffee can make a big difference in your day.",
+              p2: "Our mission is to serve only the best, ethically-sourced coffee beans, create a warm and inviting atmosphere, and foster a community that values both tradition and innovation. Every bean is carefully selected and roasted to bring you a unique and unforgettable flavor.",
+            },
+            menu: {
+              title: "Our Menu",
+              subtitle: "Crafted with care, just for you.",
+              hotDrinks: "Hot Drinks",
+              coldDrinks: "Cold Drinks",
+            },
+            gallery: {
+              title: "Our Gallery",
+              subtitle: "A glimpse into our world.",
+            },
+            specials: {
+              title: "Specials & Events",
+              promoTitle: "Current Promotion",
+              happyHourTitle: "Happy Hour:",
+              happyHourText:
+                "Enjoy 2-for-1 on all Cappuccinos every weekday from 2 PM - 4 PM!",
+              eventsTitle: "Upcoming Events",
+              musicTitle: "Live Music Fridays:",
+              musicText: "Every Friday at 7 PM. Enjoy local acoustic artists.",
+              workshopTitle: "Coffee Tasting Workshop:",
+              workshopText:
+                "Join us on the last Saturday of the month at 10 AM.",
+            },
+            contact: {
+              title: "Get in Touch",
+              subtitle: "We'd love to hear from you.",
+              addressLabel: "Address:",
+              addressValue: "123 Coffee Lane, Brewtown, CA 90210",
+              phoneLabel: "Phone:",
+              phoneValue: "(123) 456-7890",
+              emailLabel: "Email:",
+              emailValue: "hello@ghazzal.com",
+              hoursLabel: "Opening Hours:",
+              hoursValue: "Mon-Fri: 7 AM - 6 PM | Sat-Sun: 8 AM - 5 PM",
+            },
+            order: {
+              title: "Order Online & Reservations",
+              pickupTitle: "Order for Pickup",
+              pickupText:
+                "Place your order ahead of time and it'll be ready when you arrive.",
+              orderNow: "Order Now",
+            },
+            footer: {
+              hoursTitle: "Opening Hours",
+              weekdays: "Mon-Fri: 7 AM - 6 PM",
+              weekends: "Sat-Sun: 8 AM - 5 PM",
+              quickLinks: "Quick Links",
+              privacy: "Privacy Policy",
+              followUs: "Follow Us",
+              copyright: "&copy; 2024 Ghazzal. All rights reserved.",
+            },
+          },
+          ar: {
+            nav: {
+              home: "الرئيسية",
+              about: "من نحن",
+              menu: "القائمة",
+              gallery: "المعرض",
+              contact: "اتصل بنا",
+              order: "اطلب الآن",
+            },
+            hero: {
+              title: "مرحباً بكم في غزال",
+              tagline: "جرعتك اليومية من السعادة",
+              menu: "شاهد قائمتنا",
+              order: "اطلب عبر الإنترنت",
+            },
+            about: {
+              title: "قصتنا",
+              p1: "تأسس مقهانا على الشغف بالجودة والمجتمع، وبدأ كحلم صغير لإنشاء مساحة يمكن للناس فيها التواصل عبر فنجان قهوة رائع. نؤمن أن القهوة البسيطة يمكن أن تحدث فرقاً كبيراً في يومك.",
+              p2: "مهمتنا هي تقديم أفضل حبوب البن ذات المصادر الأخلاقية فقط، وخلق جو دافئ وجذاب، وتعزيز مجتمع يقدر التقاليد والابتكار. يتم اختيار كل حبة وتحميصها بعناية لتقديم نكهة فريدة لا تُنسى.",
+            },
+            menu: {
+              title: "قائمتنا",
+              subtitle: "محضرة بعناية، خصيصاً لك.",
+              hotDrinks: "مشروبات ساخنة",
+              coldDrinks: "مشروبات باردة",
+            },
+            gallery: {
+              title: "معرضنا",
+              subtitle: "لمحة عن عالمنا.",
+            },
+            specials: {
+              title: "العروض والفعاليات",
+              promoTitle: "العرض الحالي",
+              happyHourTitle: "ساعة السعادة:",
+              happyHourText:
+                "استمتع بـ 2 بسعر 1 على جميع الكابتشينو كل يوم من أيام الأسبوع من الساعة 2 مساءً حتى 4 مساءً!",
+              eventsTitle: "الفعاليات القادمة",
+              musicTitle: "جمعة الموسيقى الحية:",
+              musicText:
+                "كل يوم جمعة الساعة 7 مساءً. استمتع بالفنانين المحليين.",
+              workshopTitle: "ورشة تذوق القهوة:",
+              workshopText: "انضم إلينا في آخر سبت من الشهر الساعة 10 صباحاً.",
+            },
+            contact: {
+              title: "اتصل بنا",
+              subtitle: "نود أن نسمع منك.",
+              addressLabel: "العنوان:",
+              addressValue: "123 شارع القهوة، المدينة، المغرب",
+              phoneLabel: "الهاتف:",
+              phoneValue: "(123) 456-7890",
+              emailLabel: "البريد الإلكتروني:",
+              emailValue: "hello@ghazzal.com",
+              hoursLabel: "ساعات العمل:",
+              hoursValue:
+                "الاثنين - الجمعة: 7 ص - 6 م | السبت - الأحد: 8 ص - 5 م",
+            },
+            order: {
+              title: "الطلب عبر الإنترنت والحجوزات",
+              pickupTitle: "اطلب للاستلام",
+              pickupText: "ضع طلبك مسبقاً وسيكون جاهزاً عند وصولك.",
+              orderNow: "اطلب الآن",
+            },
+            footer: {
+              hoursTitle: "ساعات العمل",
+              weekdays: "الاثنين - الجمعة: 7 ص - 6 م",
+              weekends: "السبت - الأحد: 8 ص - 5 م",
+              quickLinks: "روابط سريعة",
+              privacy: "سياسة الخصوصية",
+              followUs: "تابعنا",
+              copyright: "&copy; 2024 غزال. جميع الحقوق محفوظة.",
+            },
+          },
+        };
+
+        let currentLang = "fr";
+
+        function setLanguage(lang) {
+          currentLang = lang;
+
+          // Update all elements with data-i18n attribute
+          document.querySelectorAll("[data-i18n]").forEach((element) => {
+            const keys = element.getAttribute("data-i18n").split(".");
+            let translation = translations[lang];
+
+            for (const key of keys) {
+              translation = translation[key];
+            }
+
+            if (translation) {
+              element.textContent = translation;
+            }
+          });
+
+          // Update active language button
+          document.querySelectorAll(".lang-btn").forEach((btn) => {
+            btn.classList.remove("active");
+            if (btn.getAttribute("data-lang") === lang) {
+              btn.classList.add("active");
+            }
+          });
+
+          // Handle RTL for Arabic
+          if (lang === "ar") {
+            document.body.classList.add("rtl");
+            document.documentElement.setAttribute("dir", "rtl");
+            document.documentElement.setAttribute("lang", "ar");
+          } else {
+            document.body.classList.remove("rtl");
+            document.documentElement.setAttribute("dir", "ltr");
+            document.documentElement.setAttribute("lang", lang);
+          }
+
+          // Save language preference
+          localStorage.setItem("preferredLanguage", lang);
+        }
+
+        // Language switcher buttons
+        document.querySelectorAll(".lang-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const lang = btn.getAttribute("data-lang");
+            setLanguage(lang);
+          });
+        });
+
+        // Load saved language preference
+        const savedLang = localStorage.getItem("preferredLanguage");
+        if (savedLang) {
+          setLanguage(savedLang);
+        }
+      });
+    </script>
+  </body>
+</html>
